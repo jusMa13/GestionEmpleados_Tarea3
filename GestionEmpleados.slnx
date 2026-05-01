@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="GestionEmpleados/GestionEmpleados.Web.csproj" />
+  <Project Path="Gestor.Models/Gestor.Models.csproj" />
+</Solution>
