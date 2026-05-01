@@ -6,13 +6,16 @@ namespace Gestor.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "El nombre es obligatorio")]
+        [Required(ErrorMessage = "El nombre es requerido")]
         [StringLength(80)]
-        public string Nombre { get; set; }
+        public string Nombre { get; set; } = "";
 
-        [Required(ErrorMessage = "El apellido es obligatorio")]
-                [StringLength(100)]
-        public string Apellido { get; set; }
+        [Required(ErrorMessage = "Los apellidos son requeridos")]
+        [StringLength(100)]
+        public string Apellidos { get; set; } = "";
+
+        [Required]
+        public string Departamento { get; set; } = "";
 
         [Required]
         [Range(400000, 10000000, ErrorMessage = "El salario debe estar entre 400000 y 10000000")]
@@ -22,7 +25,7 @@ namespace Gestor.Models
 
         public bool Activo { get; set; } = true;
 
-        public string NombreCompleto => $"{Nombre} {Apellido}";
+        public string NombreCompleto => $"{Nombre} {Apellidos}";
 
     }
 }
