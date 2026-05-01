@@ -16,4 +16,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Gestion.DATA\Gestion.DATA.csproj" />
+    <ProjectReference Include="..\Gestor.BL\Gestor.BL.csproj" />
+  </ItemGroup>
+
 </Project>
