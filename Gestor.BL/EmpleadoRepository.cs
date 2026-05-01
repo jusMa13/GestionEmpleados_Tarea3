@@ -15,7 +15,7 @@ namespace Gestor.BL
             _context = context;
         }
 
-        public IEnumerable<Gestor.Models.Empleado> ObtenerTodos()
+        //public IEnumerable<Gestor.Models.Empleado> ObtenerTodos()
         {
            
         }
