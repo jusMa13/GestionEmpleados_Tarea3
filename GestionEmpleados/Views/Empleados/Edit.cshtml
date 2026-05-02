@@ -1,0 +1,64 @@
+﻿@model Gestor.Models.Empleado
+@{
+    ViewData["Title"] = "Editar Empleado";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-warning text-dark">
+            <h2 class="mb-0">Editar Información de @Model.Nombre</h2>
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                
+                <!-- ID Oculto: ¡No lo borres! -->
+                <input type="hidden" asp-for="Id" />
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Nombre" class="form-label">Nombre</label>
+                        <input asp-for="Nombre" class="form-control" />
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Apellidos" class="form-label">Apellidos</label>
+                        <input asp-for="Apellidos" class="form-control" />
+                        <span asp-validation-for="Apellidos" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Departamento" class="form-label">Departamento</label>
+                    <input asp-for="Departamento" class="form-control" />
+                    <span asp-validation-for="Departamento" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Salario" class="form-label">Salario</label>
+                    <input asp-for="Salario" class="form-control" type="number" step="0.01" />
+                    <span asp-validation-for="Salario" class="text-danger"></span>
+                </div>
+
+                <!-- Mantenemos la fecha de ingreso original oculta para que no se pierda -->
+                <input type="hidden" asp-for="FechaIngreso" />
+
+                <div class="form-check mb-4">
+                    <input asp-for="Activo" class="form-check-input" type="checkbox" />
+                    <label asp-for="Activo" class="form-check-label">Empleado Activo</label>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-warning">Guardar Cambios</button>
+                    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

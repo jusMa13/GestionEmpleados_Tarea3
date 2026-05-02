@@ -31,8 +31,13 @@ app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
-    .WithStaticAssets();
+    pattern: "{controller=Empleados}/{action=Index}/{id?}");
 
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    // Esto creará la BD 'GestionEmpleadosV2' con todas sus tablas automáticamente
+    context.Database.EnsureCreated();
+}
 
 app.Run();

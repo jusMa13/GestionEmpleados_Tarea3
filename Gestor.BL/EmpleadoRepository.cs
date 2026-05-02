@@ -32,10 +32,11 @@ namespace Gestor.BL
 
         public int ContarTotal(string? busqueda)
         {
+            if(string.IsNullOrEmpty(busqueda))
+                return _context.Empleados.Count ();
 
-            if (!string.IsNullOrEmpty(busqueda)) return _context.Empleados.Count();
-            return _context.Empleados.Count(e => e.Nombre.Contains(busqueda) || e.Apellidos.Contains(busqueda) || e.Departamento.Contains(busqueda));
-
+            return _context.Empleados.Count(e => e.Nombre.Contains(busqueda) ||
+            e.Apellidos.Contains(busqueda) || e.Departamento.Contains(busqueda));
 
         }
 
@@ -70,7 +71,12 @@ namespace Gestor.BL
 
         public void Eliminar(int id)
         {
-
+            var empleado = _context.Empleados.Find(id);
+            if (empleado != null)
+            {
+                _context.Empleados.Remove(empleado);
+                _context.SaveChanges();
+            }
 
         }
     }

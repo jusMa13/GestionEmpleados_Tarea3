@@ -1,0 +1,119 @@
+﻿@model IEnumerable<Gestor.Models.Empleado>
+@{
+    ViewData["Title"] = "Listado de Empleados";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary">Gestión de Nóminas</h2>
+        <a asp-action="Create" class="btn btn-success shadow-sm">
+            <i class="bi bi-plus-circle"></i> Registrar Nuevo Empleado
+        </a>
+    </div>
+
+    <!-- Sección de Búsqueda -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <form asp-action="Index" method="get" class="row g-3">
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <input type="text" name="busqueda" value="@ViewBag.Busqueda"
+                               class="form-control" placeholder="Buscar por nombre o depto...">
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <a asp-action="Index" class="btn btn-outline-secondary w-100">Limpiar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tabla de Datos -->
+    <div class="table-responsive">
+        <table class="table table-hover align-middle shadow-sm bg-white">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nombre Completo</th>
+                    <th>Departamento</th>
+                    <th>Salario</th>
+                    <th>Estado</th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="fw-bold">@item.NombreCompleto</td>
+                            <td>@item.Departamento</td>
+                            <td>@item.Salario.ToString("C0")</td>
+                            <td>
+                                <span class="badge @(item.Activo ? "bg-success" : "bg-danger")">
+                                    @(item.Activo ? "Activo" : "Dado de Baja")
+                                </span>
+                            </td>
+                            <td class="text-center">
+                                <a asp-action="Edit" asp-route-id="@item.Id"
+                                   class="btn btn-sm btn-warning me-1">Editar</a>
+                                
+                                <form asp-action="ToggleActivo" asp-route-id="@item.Id"
+                                      method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-sm @(item.Activo ? "btn-outline-danger" : "btn-outline-success")"
+                                            onclick="return confirm('¿Seguro que deseas cambiar el estado de este empleado?')">
+                                        @(item.Activo ? "Dar de Baja" : "Activar")
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="text-center text-muted py-4">
+                            No se encontraron empleados registrados.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Barra de Paginación -->
+    @if (ViewBag.TotalPaginas > 1)
+    {
+        <div class="d-flex justify-content-between align-items-center mt-4">
+            <p class="text-muted small">
+                Página <strong>@ViewBag.PaginaActual</strong> de <strong>@ViewBag.TotalPaginas</strong>
+                (@ViewBag.TotalRegistros registros en total)
+            </p>
+            <nav aria-label="Navegación de empleados">
+                <ul class="pagination mb-0">
+                    <li class="page-item @(ViewBag.PaginaActual == 1 ? "disabled" : "")">
+                        <a class="page-link" asp-action="Index"
+                           asp-route-pagina="@(ViewBag.PaginaActual - 1)"
+                           asp-route-busqueda="@ViewBag.Busqueda">Anterior</a>
+                    </li>
+
+                    @for (int i = 1; i <= ViewBag.TotalPaginas; i++)
+                    {
+                        <li class="page-item @(i == ViewBag.PaginaActual ? "active" : "")">
+                            <a class="page-link" asp-action="Index"
+                               asp-route-pagina="@i"
+                               asp-route-busqueda="@ViewBag.Busqueda">@i</a>
+                        </li>
+                    }
+
+                    <li class="page-item @(ViewBag.PaginaActual == ViewBag.TotalPaginas ? "disabled" : "")">
+                        <a class="page-link" asp-action="Index"
+                           asp-route-pagina="@(ViewBag.PaginaActual + 1)"
+                           asp-route-busqueda="@ViewBag.Busqueda">Siguiente</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    }
+</div>
