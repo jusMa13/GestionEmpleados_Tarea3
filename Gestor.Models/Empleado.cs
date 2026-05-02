@@ -11,6 +11,7 @@ namespace Gestor.Models
         public string Nombre { get; set; } = "";
 
         [Required(ErrorMessage = "Los apellidos son requeridos")]
+        // metodo donde se valida que los apellidos estén dentro del rango especificado
         [StringLength(100)]
         public string Apellidos { get; set; } = "";
 
@@ -19,6 +20,7 @@ namespace Gestor.Models
 
         [Required]
         [Range(400000, 10000000, ErrorMessage = "El salario debe estar entre 400000 y 10000000")]
+        // metodo donde se valida que el salario esté dentro del rango especificado
         public decimal Salario { get; set; }
 
         public DateTime FechaIngreso { get; set; } = DateTime.Now;

@@ -9,7 +9,7 @@ namespace Gestor.BL
 
        IEnumerable<Empleado> BuscarPorNombreODepartamento(string termino);
 
-       IEnumerable<Empleado> ObtenerPaginado(int pagina, int tamano, string? busqueda);
+       IEnumerable<Empleado> ObtenerPaginado(int pagina, int tamano, string? busqueda);//metodo donde se obtiene un listado de empleados paginado, si hay busqueda se filtra por nombre, apellidos o departamento
         int ContarTotal(string? busqueda);
 
            void Agregar(Empleado empleado);

@@ -37,7 +37,7 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<AppDbContext>();
-    // Esta línea es la que crea las tablas si no existen
+
     context.Database.EnsureCreated();
 }
 

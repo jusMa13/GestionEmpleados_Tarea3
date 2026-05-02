@@ -13,7 +13,7 @@ namespace GestionEmpleados.Web.Controllers
             _repo = repo;
         }
 
-        public IActionResult Index(string busqueda = "", int pagina = 1)
+        public IActionResult Index(string busqueda = "", int pagina = 1)//metodo donde se obtiene un listado de empleados paginado, si hay busqueda se filtra por nombre, apellidos o departamento
         {
             int tamanoPagina = 5;
             var lista = _repo.ObtenerPaginado(pagina, tamanoPagina, busqueda);
@@ -55,7 +55,7 @@ namespace GestionEmpleados.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Empleado empleado)
+        public IActionResult Edit(Empleado empleado)//metodo donde se edita un empleado en la base de datos
         {
             if (ModelState.IsValid)
             {
@@ -66,7 +66,7 @@ namespace GestionEmpleados.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult ToggleActivo(int id)
+        public IActionResult ToggleActivo(int id)//metodo donde se cambia el estado de un empleado a activo o inactivo
         {
             var empleado = _repo.ObtenerPorId(id);
             if(empleado != null)
